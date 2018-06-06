@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+    <!--<property name="log.path" value="/Users/tengjun/Documents/log" />-->
+
+    <property name="LOG_FILE" value="- | [%X{requestUUID}] | [%d{yyyyMMdd HH:mm:ss.SSS}] | [%level] | [${HOSTNAME}] | [%thread] | [%logger{36}] | --> %msg|%n "/>
+
+    <property name="LOG_CON" value=" %d{HH:mm:ss} [%thread] %-5level - %msg%n "/>
+    <!--<property name="LOG_CON" value=" %d{HH:mm:ss} %contextName [%thread] %-5level %logger{36} - %msg%n "/>-->
+
+    <property name="log.path" value="D://log/spring-boot-logback" />
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+             <level>ERROR</level>
+         </filter>-->
+        <encoder>
+            <pattern>${LOG_CON}</pattern>
+        </encoder>
+        <!--<target>System.err</target>-->
+    </appender>
+
+    <!--输出到文件-->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_FILE}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+
+    <!--logback.LogbackDemo：类的全路径 -->
+    <logger name="com.fruitday.boot.controller" level="DEBUG" additivity="true">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="com.fruitday.boot.dao" level="DEBUG" additivity="true">
+        <appender-ref ref="console" />
+    </logger>
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <!--<springProfile name="test,dev">-->
+        <!--<logger name="com.fruitday.boot.controller" level="info" />-->
+    <!--</springProfile>-->
+    <!-- 生产环境. -->
+    <!--<springProfile name="prod">-->
+        <!--<logger name="com.fruitday.boot.controller" level="ERROR" />-->
+    <!--</springProfile>-->
+</configuration>

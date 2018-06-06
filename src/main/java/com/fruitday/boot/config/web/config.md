@@ -1,0 +1,22 @@
+#### 自动装配
+1. 自动装配
+    - @Configuration
+        - 作用在类上，表面是配置类
+        - 调用bean
+    - @bean
+2. bean条件装配
+    - @ConditionalOnBean
+        - 在当前上下文中存在某对象的时候，才会实例化一个bean
+    - @ConditionalOnMissingBean
+        - 在当前上下文中不存在某对象的时候，才会实例化一个bean
+3. class条件装配
+    - @ConditionalOnClass
+    - 当classpath有指定的类时，配置生效
+    - class条件装配是按照某个类是否在classpath中来决定是否要配置bean
+4. Environment装配
+    - @ConditionalOnProperty
+    - 根据name来读取environment的变量包含的属性值，其值与havingValue的值比较结果决定配置是否生效。若没有指定havingValue的值，则不为false则生效
+    - matchIfMissing为true，则environment没有包含值，则也能生效
+5. 其他条件装配
+    - @ConditionalOnExpression
+    - @ConditionalOnJava

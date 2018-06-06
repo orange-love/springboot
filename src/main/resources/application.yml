@@ -1,0 +1,56 @@
+server:
+  port: 9000
+  error:
+    path: /error
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: logs
+
+spring:
+  application:
+    name: boot
+  datasource:
+    url: jdbc:mysql://192.168.182.130:3306/test1?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    userName: test
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  hikari:
+    maximum-pool-size: 100
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: true
+    format_sql: true
+  redis:
+    database: 0
+    host: 192.168.182.130
+    port: 6379
+    password:
+    timeout: 10000
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+#  mvc:
+#    static-path-pattern: /public #指定url拦截
+  thymeleaf:
+      cache: false
+#      mode: LEGACYHTML5
+#      servlet:
+#        content-type: text/html
+
+#debug: true
+
+#logging:
+#  path: D://log/spring-boot-logback
+#  level: trace
